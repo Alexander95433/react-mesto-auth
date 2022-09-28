@@ -1,0 +1,20 @@
+.popup__close_zoom-cards {
+    top: -40px;
+    right: -40px;
+    left: auto;
+    bottom: auto;
+}
+
+@media screen and (max-width:650px) {
+    .popup__close_zoom-cards {
+        top: -25px;
+        right: -25px;
+    }
+}
+
+@media screen and (max-width:450px) {
+    .popup__close_zoom-cards {
+        top: -33px;
+        right: 0px;
+    }
+}

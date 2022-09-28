@@ -1,0 +1,7 @@
+.profile__avatar-loading-title {
+    position: absolute;
+    top: 88px;
+    left: 21px;
+    z-index: 4;
+    margin: 0;
+  }
