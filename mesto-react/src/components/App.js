@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import '../App.css';
@@ -22,7 +22,7 @@ function App() {
     const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(false);
     const [selectedCard, setselectedCard] = React.useState({ name: '', link: '' })
 
-    const [loggedIn, setLoggedIn] = React.useState(true)
+    const [loggedIn, setLoggedIn] = React.useState(false)
 
 
     //подумай как синхронизировать поля формы перед открытием   setName(currentUser.name);  setDescription(currentUser.about)
@@ -93,53 +93,29 @@ function App() {
 
 
         <div className="page">
-            
-                <CurrentUserContext.Provider value={currentUser}>
-                    <Header />
-                    <Switch>
+
+            <CurrentUserContext.Provider value={currentUser}>
+                <Header />
+                <Switch>
                     <Route path='/sign-up'>
                         <Register></Register>
                     </Route>
                     <Route path='/sign-in'>
                         <Login></Login>
                     </Route>
+                    <ProtectedRouter exact path='/' logiedId={loggedIn} component={Main} onEditProfile={() => { setisEditProfilePopupOpen(true) }}
+                        onAddPlace={() => { setisAddPlacePopupOpen(true) }} onEditAvatar={() => { setisEditAvatarPopupOpen(true) }}
+                        onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onLoading={loading}
+                    />
+                </Switch>
+                <Footer />
+                <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+                <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+                <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
+            </CurrentUserContext.Provider>
 
-
-                    {/* <ProtectedRouter
-                         path='/'
-                        logiedId={loggedIn}
-                        component={Main}
-                        onEditProfile={() => { setisEditProfilePopupOpen(true) }}
-                        onAddPlace={() => { setisAddPlacePopupOpen(true) }}
-                        onEditAvatar={() => { setisEditAvatarPopupOpen(true) }}
-                        onCardClick={handleCardClick}
-                        cards={cards}
-                        onCardLike={handleCardLike}
-                        onCardDelete={handleCardDelete}
-                        onLoading={loading}
-                        /> */}
-                    <Route exact to='/'>
-                        <Main
-                            onEditProfile={() => { setisEditProfilePopupOpen(true) }}
-                            onAddPlace={() => { setisAddPlacePopupOpen(true) }}
-                            onEditAvatar={() => { setisEditAvatarPopupOpen(true) }}
-                            onCardClick={handleCardClick}
-                            cards={cards}
-                            onCardLike={handleCardLike}
-                            onCardDelete={handleCardDelete}
-                            onLoading={loading}
-                        />
-                    </Route>
-                    </Switch>
-                    <Footer />
-                    <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
-                    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-                    <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-                    <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
-                </CurrentUserContext.Provider>
-           
         </div>
     );
 }
