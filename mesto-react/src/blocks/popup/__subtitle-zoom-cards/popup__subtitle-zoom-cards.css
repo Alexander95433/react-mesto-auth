@@ -1,0 +1,19 @@
+.popup__subtitle-zoom-cards {
+    color: white;
+    padding: 10px 0 0 0;
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    max-width: 75vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width:320px) {
+    .popup-zoom-cards__subtitle {
+        max-width: 240px;
+    }
+}

@@ -1,0 +1,7 @@
+.element__content-like-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 35px;
+    width: 22px;
+    align-items: center;
+    }

@@ -1,0 +1,10 @@
+.popup__window_zoom-cards {
+    /*display: flex;*/
+    justify-content: center;
+    position: fixed;
+    border: none;
+    padding: 0;
+    width: auto;
+    border-radius: 0;
+    background-color: transparent;
+}
