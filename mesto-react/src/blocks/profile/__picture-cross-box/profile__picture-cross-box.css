@@ -1,0 +1,36 @@
+.profile__picture-cross-box {
+    background-color: transparent;
+    min-width: 150px;
+    height: 50px;
+    border: solid 1px white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+    transition: opacity .3s linear;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+.profile__picture-cross-box:hover {
+    opacity: .7;
+    transition: .3s linear;
+
+}
+
+@media screen and (max-width:969px) {
+    .profile__picture-cross-box {
+        margin-left: 0;
+        width: 100%;
+        height: 50px;
+        margin: 36px auto 0;
+    }
+}
+
+@media screen and (max-width:650px) {
+    .profile__picture-cross-box {
+        width: 282px;
+    }
+}
