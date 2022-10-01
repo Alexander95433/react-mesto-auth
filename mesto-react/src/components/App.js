@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import '../App.css';
 import Header from './Header';
 import Main from './Main';
-import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from './EditAvatarPopup'
@@ -14,7 +13,9 @@ import { CurrentUserContext } from '../components/context/CurrentUserContext'
 
 import Login from './Login';
 import Register from './Register';
+import InfoTooltip from './InfoTooltip';
 import ProtectedRouter from './ProtectedRouter';
+
 
 function App() {
     const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(false);
@@ -78,6 +79,12 @@ function App() {
             .catch(err => console.log(err))
     }
 
+
+    // function handleRegister(data, email, password) {
+    //     apiAuth.register(data.endpoint, data.methodName, email, password)
+    //     .then((res) => {console.log(res)})
+    // }
+
     //Закрывает все попапы 
     function closeAllPopups() {
         setisEditProfilePopupOpen(false)
@@ -112,7 +119,7 @@ function App() {
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
+                <InfoTooltip onClose={closeAllPopups} />
             </CurrentUserContext.Provider>
 
         </div>

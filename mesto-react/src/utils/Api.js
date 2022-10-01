@@ -1,5 +1,7 @@
 //import { data } from "autoprefixer";
 
+// import { register } from "../../../../../react-mesto-auth/src/utils/ApiAuth";
+
 class Api {
     constructor(options) {
         this._host = options.host;
@@ -8,10 +10,10 @@ class Api {
 
     //Анализ ответа сервера
     _responseAnalysis(res) {
-        if (res.ok) { return res.json(); }
-        return Promise.reject(`Что-то пошло не так ${res.status}`)
+        if (res.ok ) { return res.json(); }
+        return Promise.reject(`Что-то пошло не так  ${res.status}`)
     };
-    
+
     //получение информации о пользователе
     getUserInfo() {
         return fetch(`${this._host}/users/me`,
@@ -92,7 +94,31 @@ class Api {
         })
             .then(res => this._responseAnalysis(res))
     };
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // _request(data, email, password,) {
+    //     return fetch(`${this._host}${data.url}`, {
+    //         method: data.methodName,
+    //         headers: this._headers,
+    //         body: JSON.stringify({ 'password': password, 'email': email })
+    //     }).then(res => this._responseAnalysis(res))
+    // }
+
+    // register(endpoint, methodName, email, password) {
+    //     return this._request({
+    //         url: endpoint,
+    //         methodName: methodName,
+    //         body: { email, password }
+    //     }, email, password)
+    // };
+
+
+
+
+    ///////////////////////////////////////////////////////////
 };
+
+
 
 
 const api = new Api({
@@ -103,4 +129,11 @@ const api = new Api({
     },
 });
 
+
+// const apiAuth = new Api({
+//     host: 'https://auth.nomoreparties.co/',
+//     headers: { "Content-Type": "application/json" }
+// })
+
+// export { api, apiAuth };
 export default api;

@@ -167,3 +167,16 @@
     color: #FFFFFF;
     text-decoration: none;
 }
+
+.popup__InfoTooltip {
+     display: flex;
+     align-items: center;
+     text-align: center;
+     padding: 60px 50px 50px ;
+}
+
+.popup__picture {
+    width: 120px;
+    height: 120px;
+    margin: 0 0 42px;
+}
