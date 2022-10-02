@@ -4,44 +4,42 @@ class ApiAuth {
     constructor(options) {
         this._host = options.host;
         this._headers = options.headers;
-    }
 
-     
+    }
 
     _responseAnalysis(res) {
         debugger
-         if (res.status === 200 ||res.status === 201 ) { return res.json(); }
+        if (res.ok || res.status === 201) { return res.json(); }
         return Promise.reject(res.status)
     }
+    //zzalexanderkomarov994@gmail.com qq
 
-    _request(data, email, password,) {
-        return fetch(`${this._host}${data.url}`, {
+
+
+    _request(data) {
+        debugger
+        const config = {
             method: data.methodName,
-            headers: this._headers,
-            body: JSON.stringify({ 'password': password, 'email': email })
-        }).then(res => this._responseAnalysis(res))
+            headers: {
+                "Content-Type": "application/json",
+                ...(!!data.token && { Authorization: `Bearer ${data.token}` }),
+            },
+            ...(!!data.body && { body: JSON.stringify(data.body)}),
+        };
+        return fetch(`${this._host}${data.endpoint}`,config).
+        then(res => this._responseAnalysis(res))
     }
 
-    register(data,  email, password) {
-        return this._request({
-            url: data.endpoint,
-            methodName: data.methodName,
-        }, email, password)
+    register(data) {
+        return this._request(data)
     };
 
-    authorization(data,  email, password) {
-        return this._request({
-            url: data.endpoint,
-            methodName: data.methodName,
-        }, email, password)
+    authorization(data) {
+        return this._request(data)
     }
 
-    checkToken(data, token) {
-        return this._request({
-            url: data.endpoint,
-            methodName: data.methodName,
-            token,
-        })
+    checkToken(data) {
+        return this._request(data)
     }
 
 }

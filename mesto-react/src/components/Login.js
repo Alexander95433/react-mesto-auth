@@ -1,10 +1,9 @@
 import React from 'react';
-import apiAuth from '../utils/ApiAuth'
-import { useHistory } from 'react-router-dom';
-function Login() {
+
+
+function Login(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const history = useHistory();
     function handleChange(e) {
         if (e.target.name === 'email') {
             setEmail(e.target.value)
@@ -16,16 +15,14 @@ function Login() {
     function handleSubmitt(e) {
         e.preventDefault();
         debugger
-        apiAuth.authorization({
+        if (!email || !password) {
+            return
+        }
+        props.onAuthorization({
             endpoint: 'signin',
             methodName: 'POST',
-        }, email, password)
-        .then((res) => {
-            if (res) {
-                history.push('/');
-                console.log(res)}
-             })
-        .catch((err) => {console.log(`Ошибка входа в систему: ${err}`)})
+            body: {password, email}
+        })
     }
     return (
         <form className='authorization__form' onSubmit={handleSubmitt}>

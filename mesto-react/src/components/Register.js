@@ -1,12 +1,11 @@
 import React from "react";
-import {Link} from 'react-router-dom';
-import apiAuth from '../utils/ApiAuth'
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Register() {
+
+function Register(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const history = useHistory();
+    // const history = useHistory();
     function handleChange(e) {
         if (e.target.name === 'email') {
             setEmail(e.target.value)
@@ -14,20 +13,19 @@ function Register() {
             setPassword(e.target.value)
         }
     };
- 
+
     function handleSubmit(e) {
         e.preventDefault();
         debugger
-        apiAuth.register({
+        if (!email || !password) {
+            return;
+          }
+        props.onRegister({
             endpoint: 'signup',
             methodName: 'POST',
-        }, email, password)
-        .then((res) => {
-            if (res) {
-                history.push('/sign-in');
-                console.log(res)}
-             })
-        .catch((err) => {console.log(`Ошибка регистрации: ${err}`)})
+            body: {password, email}
+        })
+
     }
 
     return (

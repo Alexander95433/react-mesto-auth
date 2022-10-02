@@ -10,12 +10,13 @@ import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup'
 import api from '../utils/Api'
 import { CurrentUserContext } from '../components/context/CurrentUserContext'
+import { useHistory } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRouter from './ProtectedRouter';
-
+import apiAuth from '../utils/ApiAuth'
 
 function App() {
     const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(false);
@@ -24,12 +25,18 @@ function App() {
     const [selectedCard, setselectedCard] = React.useState({ name: '', link: '' })
 
     const [loggedIn, setLoggedIn] = React.useState(false)
-
+    const history = useHistory();
 
     //подумай как синхронизировать поля формы перед открытием   setName(currentUser.name);  setDescription(currentUser.about)
     const [currentUser, setCurrentUser] = React.useState({})
     const [cards, setCards] = React.useState([])
     const [loading, setLoading] = React.useState(false)
+
+
+    React.useEffect(() => {
+        debugger
+        handleTokenCheck();
+      }, [loggedIn]);
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getCards()])
@@ -79,11 +86,63 @@ function App() {
             .catch(err => console.log(err))
     }
 
+    /////////////////////////////////////////////////////////////////////////////
 
-    // function handleRegister(data, email, password) {
-    //     apiAuth.register(data.endpoint, data.methodName, email, password)
-    //     .then((res) => {console.log(res)})
-    // }
+    function handleRegister(data) {
+        apiAuth.register(data)
+            .then((res) => {
+                if (res) {
+                    setLoggedIn(true)
+                    history.push('/sign-in');
+                    console.log(res)
+                }
+            })
+            .catch((err) => { console.log(`Ошибка регистрации: ${err}`) })
+    }
+
+    function authorization(data) {
+        apiAuth.authorization(data)
+            .then((res) => {
+                debugger
+                if (res.token) {
+                    localStorage.setItem('jwt', res.token)
+                    setLoggedIn(true)
+                    history.push('/');
+                    console.log(res)
+                } else { return }
+            })
+            .catch((err) => { console.log(`Ошибка входа в систему: ${err}`) })
+    }
+
+    function handleTokenCheck() {
+        const jwt = localStorage.getItem('jwt')
+        if (jwt) {
+            apiAuth.checkToken({
+                endpoint: 'users/me',
+                methodName: 'GET',
+                token: jwt,
+            }).then((res) => {
+                if (res) {
+                    setLoggedIn(true);
+                    console.log(loggedIn)
+                    history.push('/');
+                    console.log(res)
+                }
+            })
+                .catch((err) => { console.log(`Ошибка проверки токена: ${err}`) })
+        }
+    }
+
+    function handleClickExit() {
+        localStorage.remveItem('jwt')
+        history.push('/sign-in')
+        setLoggedIn(false)
+    }
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////
 
     //Закрывает все попапы 
     function closeAllPopups() {
@@ -102,13 +161,13 @@ function App() {
         <div className="page">
 
             <CurrentUserContext.Provider value={currentUser}>
-                <Header />
+                <Header onClickExit={handleClickExit} />
                 <Switch>
                     <Route path='/sign-up'>
-                        <Register></Register>
+                        <Register onRegister={handleRegister}></Register>
                     </Route>
                     <Route path='/sign-in'>
-                        <Login></Login>
+                        <Login onAuthorization={authorization}></Login>
                     </Route>
                     <ProtectedRouter exact path='/' logiedId={loggedIn} component={Main} onEditProfile={() => { setisEditProfilePopupOpen(true) }}
                         onAddPlace={() => { setisAddPlacePopupOpen(true) }} onEditAvatar={() => { setisEditAvatarPopupOpen(true) }}
