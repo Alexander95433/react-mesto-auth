@@ -88,7 +88,7 @@ function App() {
             .catch(err => console.log(err))
     }
 
-    function handleRegister(data) {
+    function handleRegister(data) { 
         apiAuth.register(data)
             .then((res) => {
                 if (res) {
