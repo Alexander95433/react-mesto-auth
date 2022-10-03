@@ -10,9 +10,8 @@
     transition: .3s linear;
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:350px) {
     .header__logo {
-        margin: 28px 0 31px 27px;
         width: 103px;
         height: 24px;
     }

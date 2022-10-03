@@ -1,0 +1,12 @@
+.header__burger-wrapper {
+    width: 100%;
+    position: relative;
+    top: 0;
+    transition-duration: .25s;
+}
+
+@media screen and (max-width: 730px) {
+    .header__burger-wrapper {
+        transition-duration: .25s;
+    }
+}

@@ -1,0 +1,10 @@
+.header__link-box {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media screen and (max-width: 740px) {
+    .header__link-box {
+        display: none;
+    }
+}

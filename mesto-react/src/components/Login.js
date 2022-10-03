@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function Login(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -14,16 +13,16 @@ function Login(props) {
 
     function handleSubmitt(e) {
         e.preventDefault();
-        debugger
         if (!email || !password) {
             return
         }
         props.onAuthorization({
             endpoint: 'signin',
             methodName: 'POST',
-            body: {password, email}
+            body: { password, email }
         })
     }
+
     return (
         <form className='authorization__form' onSubmit={handleSubmitt}>
             <h1 className='authorization__title'>Вход</h1>

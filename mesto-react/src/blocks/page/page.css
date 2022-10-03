@@ -1,9 +1,11 @@
 .page {
+    position: absolute;
+    top: -142px;
+    width: 100%;
     min-width: 300px;
     height: max-content;
     min-height: 100vh;
     margin: 0 auto 0;
-    padding-top: 45px;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     font-size: 16px;
     background-color: #000000;
@@ -14,5 +16,6 @@
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-
+    transition-duration: .25s;
 }
+

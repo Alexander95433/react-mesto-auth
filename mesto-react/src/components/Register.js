@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 function Register(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    // const history = useHistory();
     function handleChange(e) {
         if (e.target.name === 'email') {
             setEmail(e.target.value)
@@ -16,16 +15,14 @@ function Register(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        debugger
         if (!email || !password) {
             return;
-          }
+        }
         props.onRegister({
             endpoint: 'signup',
             methodName: 'POST',
-            body: {password, email}
+            body: { password, email }
         })
-
     }
 
     return (

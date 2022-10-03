@@ -1,0 +1,16 @@
+.header__close-button {
+    display: none;
+    width: min-content;
+    height: min-content;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 6px 0 0;
+}
+
+@media screen and (max-width: 740px) {
+    .header__close-button {
+        display: initial;
+    }
+}

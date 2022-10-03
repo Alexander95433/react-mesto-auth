@@ -24,19 +24,21 @@ function App() {
     const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(false);
     const [selectedCard, setselectedCard] = React.useState({ name: '', link: '' })
 
+    const [email, setEmail] = React.useState('@Email')
     const [loggedIn, setLoggedIn] = React.useState(false)
     const history = useHistory();
 
-    //подумай как синхронизировать поля формы перед открытием   setName(currentUser.name);  setDescription(currentUser.about)
     const [currentUser, setCurrentUser] = React.useState({})
     const [cards, setCards] = React.useState([])
     const [loading, setLoading] = React.useState(false)
-
+    const [tooltip, setTooltip] = React.useState(false)
+    const [errorTooltip, setErrorTooltip] = React.useState(false)
+    const [closeButton, setCloseButton] = React.useState(false)
 
     React.useEffect(() => {
-        debugger
+
         handleTokenCheck();
-      }, [loggedIn]);
+    }, [loggedIn]);
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getCards()])
@@ -86,32 +88,40 @@ function App() {
             .catch(err => console.log(err))
     }
 
-    /////////////////////////////////////////////////////////////////////////////
-
     function handleRegister(data) {
         apiAuth.register(data)
             .then((res) => {
                 if (res) {
                     setLoggedIn(true)
                     history.push('/sign-in');
+                    setTooltip(true)
+                    setErrorTooltip(false)
                     console.log(res)
                 }
             })
-            .catch((err) => { console.log(`Ошибка регистрации: ${err}`) })
+            .catch((err) => {
+                setTooltip(true)
+                setErrorTooltip(true)
+                console.log(`Ошибка регистрации: ${err}`)
+            })
     }
 
     function authorization(data) {
         apiAuth.authorization(data)
             .then((res) => {
-                debugger
                 if (res.token) {
                     localStorage.setItem('jwt', res.token)
                     setLoggedIn(true)
+                    setErrorTooltip(false)
                     history.push('/');
                     console.log(res)
                 } else { return }
             })
-            .catch((err) => { console.log(`Ошибка входа в систему: ${err}`) })
+            .catch((err) => {
+                setTooltip(true)
+                setErrorTooltip(true)
+                console.log(`Ошибка входа в систему: ${err}`)
+            })
     }
 
     function handleTokenCheck() {
@@ -124,50 +134,47 @@ function App() {
             }).then((res) => {
                 if (res) {
                     setLoggedIn(true);
-                    console.log(loggedIn)
                     history.push('/');
-                    console.log(res)
+                    setEmail(res.data.email)
                 }
-            })
-                .catch((err) => { console.log(`Ошибка проверки токена: ${err}`) })
+            }).catch((err) => { console.log(`Ошибка проверки токена: ${err}`) })
         }
     }
 
     function handleClickExit() {
-        localStorage.remveItem('jwt')
+        setCloseButton(false)
+        localStorage.removeItem('jwt')
         history.push('/sign-in')
         setLoggedIn(false)
     }
-
-
-
-
-    /////////////////////////////////////////////////////////////////////////////
 
     //Закрывает все попапы 
     function closeAllPopups() {
         setisEditProfilePopupOpen(false)
         setisAddPlacePopupOpen(false)
         setisEditAvatarPopupOpen(false)
+        setTooltip(false)
         setselectedCard({ name: '', link: '' })
     };
 
     //принимает обьект с карточкой из компонента Card
     function handleCardClick(card) { setselectedCard(card) };
 
+
+    function hendleBurger() {
+        setCloseButton(!closeButton)
+    }
+
     return (
-
-
-        <div className="page">
-
+        <div className={`page ${closeButton ? 'page_burger-open' : ''}`}>
             <CurrentUserContext.Provider value={currentUser}>
-                <Header onClickExit={handleClickExit} />
+                <Header onEmail={email} onClickExit={handleClickExit} onBurger={hendleBurger} onCloseButton={closeButton} />
                 <Switch>
                     <Route path='/sign-up'>
-                        <Register onRegister={handleRegister}></Register>
+                        <Register onRegister={handleRegister} onTooltip={() => { setTooltip(true) }}></Register>
                     </Route>
                     <Route path='/sign-in'>
-                        <Login onAuthorization={authorization}></Login>
+                        <Login onAuthorization={authorization} ></Login>
                     </Route>
                     <ProtectedRouter exact path='/' logiedId={loggedIn} component={Main} onEditProfile={() => { setisEditProfilePopupOpen(true) }}
                         onAddPlace={() => { setisAddPlacePopupOpen(true) }} onEditAvatar={() => { setisEditAvatarPopupOpen(true) }}
@@ -178,9 +185,8 @@ function App() {
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-                <InfoTooltip onClose={closeAllPopups} />
+                <InfoTooltip onClose={closeAllPopups} onTooltipError={errorTooltip} isOpen={tooltip} />
             </CurrentUserContext.Provider>
-
         </div>
     );
 }

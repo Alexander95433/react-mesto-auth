@@ -1,0 +1,6 @@
+.popup__InfoTooltip {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 60px 50px 50px;
+}

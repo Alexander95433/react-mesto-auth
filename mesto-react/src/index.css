@@ -1,15 +1,27 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/inter.css);
 
+/*root*/
+@import url(./blocks/root/root.css);
+
 /*body*/
 @import url(./blocks/body/body.css);
 
 /*page*/
 @import url(./blocks/page/page.css);
+@import url(./blocks/page/_burger-open/page_burger-open.css);
 
 /*header*/
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__button-title/header__button-title.css);
+@import url(./blocks/header/__email/header__email.css);
+@import url(./blocks/header/__button-title-burger/header__button-title-burger.css);
+@import url(./blocks/header/__close-button/header__close-button.css);
+@import url(./blocks/header/__close-button-picture/header__close-button-picture.css);
+@import url(./blocks/header/__button-title_close/header__button-title_close.css);
+@import url(./blocks/header/__burger/header__burger.css);
+@import url(./blocks/header/__burger-wrapper/header__burger-wrapper.css);
 
 /*main*/
 @import url(./blocks/main/main.css);
@@ -76,107 +88,30 @@
 @import url(./blocks/popup/__picture-zoom-cards/popup__picture-zoom-cards.css);
 @import url(./blocks/popup/__subtitle-zoom-cards/popup__subtitle-zoom-cards.css);
 
-#root {
-    height: 100vh;
-}
-.authorization__form {
-    width: 358px;
-    margin: 60px auto 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/*__InfoTooltip*/
+@import url(./blocks/popup/__InfoTooltip/popup__InfoTooltip.css);
+@import url(./blocks/popup/__picture/popup__picture.css);
+@import url(./blocks/popup/__link-box/header__link-box.css);
 
-}
-
-.authorization__title {
-    margin: 0;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
-    color: #FFFFFF;
-}
-
-.authorization__fieldset {
-    border: none;
-    display: flex;
-    flex-direction: column;
-}
-
-.authorization__input {
-    margin-top: 30px;
-    background-color: black;
-    border: none;
-    border-bottom: 2px solid #CCCCCC;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #CCCCCC; 
-    padding-bottom: 13px;
-}
-.authorization__input::placeholder{
-    font-family: Inter;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-    color: #CCCCCC;
-}
-
-
-.authorization__input:first-child {
-    margin-top: 50px;
-}
  
-.authorization__button {
-    width: 358px;
-    height: 50px;
-    margin-top: 216px;
-    background-color: #FFFFFF;
-    color: black;
-    border-radius: 2px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-}
 
-.authorization__registration-link {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #FFFFFF;
-    text-align: center;
-    text-decoration: none;
-    margin-top: 15px;
-}
+ 
+/*authorization*/
+@import url(./blocks/authorization/__form/authorization__form.css);
+@import url(./blocks/authorization/__title/authorization__title.css);
+@import url(./blocks/authorization/__fieldset/authorization__fieldset.css);
+@import url(./blocks/authorization/__input/authorization__input.css);
+@import url(./blocks/authorization/__button/authorization__button.css);
+@import url(./blocks/authorization/__registration-link/authorization__registration-link.css);
 
-.header__button-title {
-    margin-top: 6px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #FFFFFF;
-    text-decoration: none;
-}
+ 
 
-.popup__InfoTooltip {
-     display: flex;
-     align-items: center;
-     text-align: center;
-     padding: 60px 50px 50px ;
-}
+ 
 
-.popup__picture {
-    width: 120px;
-    height: 120px;
-    margin: 0 0 42px;
-}
+ 
+
+ 
+
+
+
+ 

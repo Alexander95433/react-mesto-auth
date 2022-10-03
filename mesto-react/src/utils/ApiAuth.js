@@ -8,16 +8,14 @@ class ApiAuth {
     }
 
     _responseAnalysis(res) {
-        debugger
         if (res.ok || res.status === 201) { return res.json(); }
         return Promise.reject(res.status)
     }
-    //zzalexanderkomarov994@gmail.com qq
+    //ppalexanderkomarov994@gmail.com qq
 
 
 
     _request(data) {
-        debugger
         const config = {
             method: data.methodName,
             headers: {
