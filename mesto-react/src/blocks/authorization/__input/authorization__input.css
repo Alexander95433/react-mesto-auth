@@ -1,4 +1,5 @@
 .authorization__input {
+    outline: 0;
     margin-top: 30px;
     background-color: black;
     border: none;
