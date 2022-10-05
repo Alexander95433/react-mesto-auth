@@ -17,3 +17,7 @@
     opacity: 0.85;
     transition: .2s linear;
 }
+
+.authorization__button:disabled {
+    color: #DCDCDC;
+}

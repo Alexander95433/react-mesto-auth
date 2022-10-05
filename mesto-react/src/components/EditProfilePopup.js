@@ -14,7 +14,7 @@ function EditProfilePopup(props) {
 
     }, [currentUser, props.isOpen])
 
-    // обработчик submit для формы
+    // обработчик submit для формы 
     function handleSubmit(e) {
         e.preventDefault()
         props.onUpdateUser({

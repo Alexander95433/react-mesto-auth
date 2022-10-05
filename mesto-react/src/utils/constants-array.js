@@ -5,6 +5,7 @@ const formDescriptionEdit = popupFormEdit.querySelector('.popup__form-input_desc
 const buttonCard = document.querySelector('.profile__picture-cross-box');
 const avatarWrapper = document.querySelector('.profile__avatar-container')
 
+
 const config = {
     elementTemplate: '#element-template',
     likeButton: '.element__content-button-like',
@@ -25,4 +26,4 @@ const config = {
     contentTitle: '.element__content-title',
     cardBody: '.element__card',
 };
-export { buttonPopupOn, popupFormEdit, formNameEdit, formDescriptionEdit, buttonCard, config, avatarWrapper };
+export  { buttonPopupOn, popupFormEdit, formNameEdit, formDescriptionEdit, buttonCard, config, avatarWrapper };

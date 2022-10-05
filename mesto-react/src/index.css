@@ -76,7 +76,7 @@
 @import url(./blocks/popup/__form-input/_name-add-a-card/popup__form-input_name-add-a-card.css);
 @import url(./blocks/popup/__form-input/_description-add-a-card/popup__form-input_description-add-a-card.css);
 @import url(./blocks/popup/__span-input-error/popup__span-input-error.css);
- 
+
 
 /*popup_visible*/
 @import url(./blocks/popup/_visible/popup_visible.css);
@@ -93,9 +93,9 @@
 @import url(./blocks/popup/__picture/popup__picture.css);
 @import url(./blocks/popup/__link-box/header__link-box.css);
 
- 
 
- 
+
+
 /*authorization*/
 @import url(./blocks/authorization/__form/authorization__form.css);
 @import url(./blocks/authorization/__title/authorization__title.css);
@@ -104,22 +104,7 @@
 @import url(./blocks/authorization/__button/authorization__button.css);
 @import url(./blocks/authorization/__registration-link/authorization__registration-link.css);
 @import url(./blocks/popup/__form-input_error/popup__form-input_error.css);
- 
-
- 
-
- 
-
-.popup__form-input_error-register {
-    border-bottom: 2px solid red; 
-
-}
-
-.authorization__button:disabled {
-    color: #DCDCDC;
-    }
-     
 
 
 
- 
+

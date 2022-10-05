@@ -34,6 +34,7 @@ function App() {
     const [tooltip, setTooltip] = React.useState(false)
     const [errorTooltip, setErrorTooltip] = React.useState(false)
     const [closeButton, setCloseButton] = React.useState(false)
+    const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard;
 
     React.useEffect(() => {
 
@@ -88,7 +89,7 @@ function App() {
             .catch(err => console.log(err))
     }
 
-    function handleRegister(data) { 
+    function handleRegister(data) {
         apiAuth.register(data)
             .then((res) => {
                 if (res) {
@@ -156,6 +157,18 @@ function App() {
         setTooltip(false)
         setselectedCard({ name: '', link: '' })
     };
+
+
+    // закрывает попапы на esc
+    React.useEffect(() => {
+        function closeByEscape(evt) {
+            if (evt.key === 'Escape') { closeAllPopups(); }
+        }
+        if (isOpen) {
+            document.addEventListener('keydown', closeByEscape);
+            return () => { document.removeEventListener('keydown', closeByEscape); }
+        }
+    }, [isOpen])
 
     //принимает обьект с карточкой из компонента Card
     function handleCardClick(card) { setselectedCard(card) };
